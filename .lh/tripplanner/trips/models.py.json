@@ -1,0 +1,30 @@
+{
+    "sourceFile": "tripplanner/trips/models.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1742388448314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1742389231259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,5 +36,5 @@\n         ('fuel', 'Fuel Stop'),\r\n         ('rest', 'Rest Stop'),\r\n         ('checkpoint', 'Checkpoint')\r\n     ])\r\n-    \n\\ No newline at end of file\n+    duration_\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1742389237381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,5 +36,5 @@\n         ('fuel', 'Fuel Stop'),\r\n         ('rest', 'Rest Stop'),\r\n         ('checkpoint', 'Checkpoint')\r\n     ])\r\n-    duration_minutes\n\\ No newline at end of file\n+    duration_minutes \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1742389265302,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,5 +36,6 @@\n         ('fuel', 'Fuel Stop'),\r\n         ('rest', 'Rest Stop'),\r\n         ('checkpoint', 'Checkpoint')\r\n     ])\r\n-    duration_minutes = models.IntegerField(default=30)\n\\ No newline at end of file\n+    duration_minutes = models.IntegerField(default=30)\r\n+    \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1742388448314,
+            "name": "Commit-0",
+            "content": "from django.db import models\r\nfrom django.contrib.auth.models import AbstractUser\r\n\r\n\r\n# Customer use model\r\nclass CustomerUser(AbstractUser):\r\n    is_driver = models.BooleanField(default=True)\r\n    \r\n# Trip model\r\nclass Trip(models.Model):\r\n    STATUS_CHOICES = [\r\n        ('pending', 'Pending'),\r\n        ('in_progress', 'In Progress'),\r\n        ('completed', 'Completed')\r\n        \r\n    ]\r\n    \r\n    user = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name=\"trips\")\r\n    current_location = models.CharField( max_length=255)\r\n    pickup_location = models.CharField( max_length=255)\r\n    dropoff_location = models.CharField( max_length=255)\r\n    current_cycle_hours = models.IntegerField()\r\n    distance = models.FloatField(null=True, blank=True)\r\n    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')\r\n    created_at = models.DateTimeField(auto_now_add=True)\r\n    updated_at = models.DateTimeField(auto_now=True)\r\n    \r\n    def __str__(self):\r\n        return f\"Trip {self.id} - {self.pickup_location} to {self.dropoff_location}\"\r\n    \r\n# Srop Models\r\nclass Stop(models.Model):\r\n    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name=\"stops\")\r\n    location = models.CharField(max_length=255)\r\n    stop_type = models.CharField( max_length=50, choices=[\r\n        ('fuel', 'Fuel Stop'),\r\n        ('rest', 'Rest Stop'),\r\n        ('checkpoint', 'Checkpoint')\r\n    ])\r\n    "
+        }
+    ]
+}
