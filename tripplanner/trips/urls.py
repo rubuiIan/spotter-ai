@@ -1,17 +1,16 @@
 from django.urls import path
-from . views import (
-    TripListCreateView, TripDetailView,
-    StopListCreateView, StopDetailView,
-    LogEntryListCreateView, LogEntryLDetailCreateView
+from .views import (
+    home, TripListCreateView, TripDetailView, 
+    StopListCreateView, StopDetailView, 
+    LogEntryListCreateView, LogEntryDetailView
 )
 
 urlpatterns = [
-    path('trips/', TripListCreateView.as_view(), name='trip-list-create'),
+    path('', home, name='home'),
+    path('trips/', TripListCreateView.as_view(), name='trip-list'),
     path('trips/<int:pk>/', TripDetailView.as_view(), name='trip-detail'),
-    
-     path('stops/', StopListCreateView.as_view(), name='stop-list-create'),
-     path('stops/<int:pk>/', StopDetailView.as_view(), name='stop-list-detail'),
-     
-     path('log/', LogEntryListCreateView.as_view(), name='log-list-create'),
-     path('log/<int:pk>/', LogEntryLDetailCreateView.as_view(), name='stop-list-detail'),
+    path('stops/', StopListCreateView.as_view(), name='stop-list'),
+    path('stops/<int:pk>/', StopDetailView.as_view(), name='stop-detail'),
+    path('logs/', LogEntryListCreateView.as_view(), name='logentry-list'),
+    path('logs/<int:pk>/', LogEntryDetailView.as_view(), name='logentry-detail'),
 ]

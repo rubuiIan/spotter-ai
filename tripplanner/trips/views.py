@@ -1,11 +1,16 @@
+from django.http import HttpResponse
 from rest_framework import generics, permissions
 from .models import Trip, Stop, LogEntry
 from .serializers import TripSerializer, StopSerializer, LogEntrySerializer
 
+# Home View
+def home(request):
+    return HttpResponse("Welcome to Trip Planner!")
+
 # Trip views
 class TripListCreateView(generics.ListCreateAPIView):
     queryset = Trip.objects.all()
-    selializers_class = TripSerializer
+    serializer_class = TripSerializer
     permission_classes = [permissions.IsAuthenticated]
     
     def perform_create(self, serializer):
@@ -31,10 +36,10 @@ class StopDetailView(generics.RetrieveDestroyAPIView):
 # Log entry
 class LogEntryListCreateView(generics.ListCreateAPIView):
     queryset = LogEntry.objects.all()
-    serializer_class = StopSerializer
+    serializer_class = LogEntrySerializer
     permission_classes = [permissions.IsAuthenticated]
     
-class LogEntryLDetailCreateView(generics.RetrieveUpdateDestroyAPIView):
+class LogEntryDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LogEntry.objects.all()
-    serializer_class = StopSerializer
+    serializer_class = LogEntrySerializer
     permission_classes = [permissions.IsAuthenticated]
